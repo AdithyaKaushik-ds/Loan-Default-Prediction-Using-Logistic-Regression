@@ -1,85 +1,84 @@
 # Loan-Default-Prediction-Using-Logistic-Regression
 
-This project focuses on predicting the likelihood of loan default in the personal loan segment using data from LoanTap. The objective is to optimize the loan underwriting process by accurately classifying applicants based on their repayment capability. A Logistic Regression model was developed with careful data preprocessing, feature engineering, and evaluation.
+This project focuses on predicting the likelihood of loan default in the personal loan segment using a real-world lending dataset. The goal is to enhance the credit risk assessment pipeline by classifying loan applicants based on their repayment behavior. A Logistic Regression model is built through systematic preprocessing, feature engineering, and performance evaluation.
 
 📌 Problem Statement
 
-LoanTap seeks to automate its credit risk assessment by identifying factors influencing loan repayment. The aim is to:
+The objective is to build a classification model that identifies borrowers with a high risk of default. By leveraging historical loan data, the model aims to:
 
-Predict borrower creditworthiness using loan application data.
+Predict creditworthiness using demographic, financial, and behavioral attributes.
 
-Minimize false negatives (i.e., approving defaulters) and false positives (i.e., rejecting good customers).
+Reduce false negatives (approving defaulters) and false positives (rejecting creditworthy applicants).
 
-Improve lending efficiency while managing non-performing assets (NPAs).
+Support risk-informed lending decisions to minimize non-performing loans.
 
 📊 Exploratory Data Analysis (EDA)
 
-Target Imbalance: 80% loans are fully paid, 20% are charged-off.
+Target Variable: Highly imbalanced with ~80% of loans fully paid.
 
-Key Insights:
+Key Observations:
 
-Most loans are of 36 months term (76%).
+Most loans are issued with a 36-month term.
 
-Grade ‘B’ is most common and more likely to be fully paid.
+Applicants with grade ‘B’ show better repayment history.
 
-59% of loans are for debt consolidation; 21% for credit card repayment.
+Debt consolidation and credit card payments are the primary loan purposes.
 
-Features like loan amount, interest rate, and DTI are skewed with significant outliers.
+Multiple features show skewed distributions and the presence of outliers.
 
 🔧 Data Preprocessing & Feature Engineering
 
-Missing values handled using imputation and domain logic (e.g., grouped mort_acc by total_acc).
+Missing Values: Addressed using conditional imputation and logical grouping strategies.
 
-Outliers were removed using the 3σ (standard deviation) rule.
+Outliers: Handled using the standard deviation method to retain model stability.
 
-Feature Engineering:
+Engineered Features:
 
-Created flags from public records and bankruptcy history.
+Extracted ZIP codes and state identifiers from address fields.
 
-Extracted zip_code and state from the address.
+Created binary flags from bankruptcy and credit record attributes.
 
-Applied OneHotEncoding on categorical features.
+Applied One-Hot Encoding for categorical variables.
 
-SMOTE applied to handle class imbalance during model training.
+Class Imbalance: Addressed using SMOTE to upsample the minority class.
 
 🤖 Model Building & Evaluation
 
-Model: Logistic Regression
+Algorithm: Logistic Regression
 
-Scaling: MinMaxScaler
+Scaler: MinMaxScaler for feature normalization
 
-Train/Test Split: 80/20 with stratified sampling
+Split: 80/20 train-test stratification
 
-Performance Metrics:
+Results:
 
 Test Accuracy: 80%
 
-Test F1 Score: 0.61
+F1 Score: 0.61
 
-Test Recall: 0.81
+Recall: 0.81
 
-Test Precision: 0.49
+Precision: 0.49
 
 ROC-AUC: 0.91
 
-AUPRC: ~0.78 (Precision-Recall Curve Area)
+AUPRC: ~0.78
 
 🧠 Feature Importance
 
-Top impactful features:
+Geographical ZIP codes had the highest model impact.
 
-zip_code features (strongly correlated with defaults)
+Other influential features included DTI, loan amount, and number of open accounts.
 
-dti, open_acc, loan_amnt
-
-Negative impact from annual_inc, application_type_JOINT
+Features like annual income and joint application status showed negative coefficients.
 
 🧩 Recommendations
 
-Maximize F1 Score and AUPRC to balance recall and precision.
+Optimize the F1 Score and AUPRC to balance business risk and opportunity.
 
-Use geographical attributes cautiously—they are powerful predictors but may introduce bias.
+Consider enhancing the model using tree-based classifiers for non-linear decision boundaries.
 
-Explore complex models (e.g., Random Forest) for better nonlinear decision boundaries.
+ZIP code-based predictions should be validated to avoid regional bias.
 
-Continuously monitor false positive and false negative trade-offs using threshold tuning.
+Implement threshold tuning to manage false positives and false negatives.
+
